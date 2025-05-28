@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion-Cahier</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.2/font/bootstrap-icons.css">
+</head>
+
+<body>
+<div class="p-3">
+    <div class="card">
+        <div class="card-header">LISTES DES CAHIERS</div>
+        <div class="card-body">
+            <form method="get" th:action="@{uasz}">
+                <label>Recherche par nom [NOM] des cahiers</label>
+                <input type="text" name="keyword" th:value="${keyword}">
+                <button type="submit" class="btn btn-info">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th> <th>NOM</th> <th>PAGE</th> <th>QUALITE</th> <th>STOCK</th> <th>DATE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${list}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.nom}"></td>
+                    <td th:text="${p.nbrePage}"></td>
+                    <td th:text="${p.qualite}"></td>
+                    <td th:text="${p.stock}"></td>
+                    <td th:text="${p.date}"></td>
+                    <td>
+                        <a onclick="javascript:return confirm('voulez-vous ajouter un cahier')"
+                            class="btn btn-success">
+                            <i class="bi bi-plus-square  "></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a onclick="javascript:return confirm('etes-vous sur ?')"
+                           th:href="@{delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}" class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="page,status:${pages}">
+                    <a th:href="@{/uasz(page=${status.index}, keyword=${keyword})}"
+                      th:class="${(currentPage==status.index)?'btn btn-info ms-1' : 'btn btn-outline-info ms-1'}"
+                       th:text="${1+status.index}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

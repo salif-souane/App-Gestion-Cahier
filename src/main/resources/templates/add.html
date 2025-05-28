@@ -1,0 +1,21 @@
+<!-- src/main/resources/templates/cahier/add.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter un Cahier</title>
+</head>
+<body>
+<h1>Ajouter un Cahier</h1>
+
+<form th:action="@{/add}" th:object="${cahier}" method="post">
+  <label for="nom">Nom:</label>
+  <input type="text" id="nom" th:field="*{nom}" required>
+
+  <!-- Ajoutez d'autres champs du cahier ici -->
+
+  <button type="submit">Ajouter</button>
+</form>
+</body>
+</html>
